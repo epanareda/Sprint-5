@@ -10938,8 +10938,17 @@ textarea.form-control-lg {
   z-index: -1;
 }
 
+.btn-active {
+  background-color: white;
+  color: black;
+}
+
+.btn-active:hover {
+  background-color: rgb(204, 204, 204);
+}
+
 #joke-content-container {
-  margin-top: 10rem;
+  margin-top: 9rem;
   width: 50%;
 }
 @media screen and (max-width: 992px) {
