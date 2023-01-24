@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
     <title>Sprint 5</title>
 </head>
 <body>
-    <h1>APP Acudits</h1>
-    <p>
-        Si vols veure un acudit dona-li al botó "SEGÜENT ACUDIT".
-    </p>
-    <button>SEGÜENT ACUDIT</button>
+    <div id="background" class="position-absolute top-0 left-0 w-100 h-100"></div>
+    <div id="weather-container" class="position-absolute top-0 left-0 p-3 ps-4 fw-bold">
+        <p>
+            Avui: parcialment ennuvolat
+        </p>
+    </div>
+    <div id="joke-content-container"
+    class="mx-auto border p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center bg-white shadow rounded-4">
+        <h1 class="m-0 h3">Preparat per riure? 🤣</h1>
+        <p class="p-0 my-5">
+            Si vols veure un acudit dona-li al botó "Següent acudit".
+        </p>
+        <button class="btn btn-primary p-2 px-4">
+            Següent acudit
+        </button>
+    </div>
+    
 
     <script type="text/javascript" src="js/main.js"></script>
 </body>
