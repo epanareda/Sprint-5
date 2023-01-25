@@ -40,19 +40,36 @@ const weather_code = {
     96: "thunderstorm with slight hail",
     99: "thunderstorm with heavy hail"
 };
+// Chuck Norris jokes.
+const api_chuckNorris_url = "https://api.chucknorris.io/jokes/random";
 
 // Data storage variables.
 const reportAcudits = [];
 
+function random_joke(){
+    const rand = Math.floor(Math.random() * 2); // Get a random num, either 0 or 1;
+    if(rand === 0) {
+        return [api_url, {headers: api_headers}];
+    }
+    return [api_chuckNorris_url];
+}
+
 // Here is called the event that will handle the whole API call.
 next_btn.addEventListener("click", () => {
-    fetch(api_url, {headers: api_headers}) // With the use of fetch the delay occured because of the request to de API is solved automatically, fetch uses a promise.
+    const api_to_fetch = random_joke();
+    fetch(...api_to_fetch) // With the use of fetch the delay occured because of the request to de API is solved automatically, fetch uses a promise.
         .then(response => response.json())
         // .then(json => console.log(json.joke))
         .then(json => {
-            joke_text.textContent = `" ${json.joke} "`;
-            // The new joke shown is added the the report, it's score, in case it's voted, will be assign later on.
-            add_report(json.joke);
+            if(api_to_fetch.length === 1) {
+                joke_text.textContent = `" ${json.value} "`;
+                // The new joke shown is added the the report, it's score, in case it's voted, will be assign later on.
+                add_report(json.value);
+            } else {
+                joke_text.textContent = `" ${json.joke} "`;
+                // The new joke shown is added the the report, it's score, in case it's voted, will be assign later on.
+                add_report(json.joke);
+            };
         });
         add_punct_btn();
 });
