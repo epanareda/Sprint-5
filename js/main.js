@@ -3,6 +3,7 @@ const next_btn = document.querySelector("#next-joke-btn");
 const joke_text = document.querySelectorAll("p")[1];
 const punct_btn_conatiner = document.querySelector("#punct-joke-container");
 const weather_text = document.querySelector("p");
+const weather_img = document.querySelector("img");
 
 // API variables.
 // Father jokes.
@@ -11,34 +12,62 @@ const api_headers = {"Accept": "application/json"};
 // Weather.
 const api_weather_url = "https://api.open-meteo.com/v1/forecast?latitude=41.39&longitude=2.16&current_weather=true"; // Weather in Barcelona.
 const weather_code = {
-    0: "clear sky",
-    1: "mainly clear",
-    2: "partly cloudy",
-    3: "overcast",
-    45: "fog",
-    48: "depositing rime fog",
-    51: "drizzle light",
-    53: "drizzle moderate",
-    55: "drizzle dense intensity",
-    56: "freezing drizzle light",
-    57: "freezing dizzle heavy intensity",
-    61: "rain slight",
-    63: "rain moderate",
-    65: "rain heavy intensity",
-    66: "freezing rain light",
-    67: "freezing rain heavy intensity",
-    71: "snow fall slight",
-    73: "snow fall moderate",
-    75: "snow fall heavy intensity",
-    77: "snow grains",
-    80: "rain shower slight",
-    81: "rain shower moderate",
-    82: "rain shower violent",
-    85: "snow showers slight",
-    86: "snow showers heavy",
-    95: "thunderstorm",
-    96: "thunderstorm with slight hail",
-    99: "thunderstorm with heavy hail"
+    0: {description: "clear sky",
+        image: "sunny"},
+    1: {description: "mainly clear",
+        image: "cloudy"},
+    2: {description: "partly cloudy",
+        image: "cloudy"},
+    3: {description: "overcast",
+        image: "cloud"},
+    45: {description: "fog",
+        image: "fog"},
+    48: {description: "depositing rime fog",
+        image: "fog"},
+    51: {description: "drizzle light",
+        image: "rain"},
+    53: {description: "drizzle moderate",
+        image: "rain"},
+    55: {description: "drizzle dense intensity",
+        image: "rain"},
+    56: {description: "freezing drizzle light",
+        image: "rain"},
+    57: {description: "freezing dizzle heavy intensity",
+        image: "rain"},
+    61: {description: "rain slight",
+        image: "rain"},
+    63: {description: "rain moderate",
+        image: "rain"},
+    65: {description: "rain heavy intensity",
+        image: "rain"},
+    66: {description: "freezing rain light",
+        image: "rain"},
+    67: {description: "freezing rain heavy intensity",
+        image: "rain"},
+    71: {description: "snow fall slight",
+        image: "snow"},
+    73: {description: "snow fall moderate",
+        image: "snow"},
+    75: {description: "snow fall heavy intensity",
+        image: "snow"},
+    77: {description: "snow grains",
+        image: "snow"},
+    80: {description: "rain shower slight",
+        image: "rain"},
+    81: {description: "rain shower moderate",
+        image: "rain"},
+    82: {description: "rain shower violent",
+        image: "rain"},
+    85: {description: "snow showers slight",
+        image: "snow"},
+    86: {description: "snow showers heavy",
+        image: "snow"},
+    95: {description: "thunderstorm",
+        image: "thunderstorm"},
+    96: {description: "thunderstorm with slight hail",
+        image: "thunderstorm-hail"},
+    99: {description: "thunderstorm with heavy hail",
+        image: "thunderstorm-hail"}
 };
 // Chuck Norris jokes.
 const api_chuckNorris_url = "https://api.chucknorris.io/jokes/random";
@@ -78,7 +107,11 @@ next_btn.addEventListener("click", () => {
 fetch(api_weather_url)
     .then(response => response.json())
     // .then(json => console.log(weather_code[json.current_weather.weathercode]))
-    .then(json => weather_text.textContent = `Avui: ${weather_code[json.current_weather.weathercode]} | ${json.current_weather.temperature}ºC`);
+    .then(json => {
+        weather_img.src = `/images/weather/${weather_code[json.current_weather.weathercode].image}.png`;
+        weather_img.alt = `${weather_code[json.current_weather.weathercode].description}`;
+        weather_text.textContent = `${json.current_weather.temperature}ºC`;
+    });
 
 // This function adds the buttons to vote the jokes once they are shown on screen, with all of it's styles and functionalities.
 function add_punct_btn() {
@@ -88,24 +121,29 @@ function add_punct_btn() {
     // const btn_2 = document.createElement("btn");
     // const btn_3 = document.createElement("btn");
 
-    /*const [btn_1, btn_2, btn_3] = */[0, 0, 0].map((b, index) => {
+    /*const [btn_1, btn_2, btn_3] = */["sad", "indifferent", "happiness"].map((name, index) => {
         if(punct_btn_conatiner.children.length === 3) {
             punct_btn_conatiner.innerHTML = "";
         }
         const btn = document.createElement("btn");
-        ["btn", "btn-secondary", "mb-5", "mx-5"].map(c => {
+        const img = document.createElement("img");
+        img.src = `/images/faces/${name}.png`;
+        img.alt = name;
+        img.width = 32;
+        btn.appendChild(img);
+        ["btn", "p-0", "rounded-circle", "mb-5", "mx-5"].map(c => {
             if(index !== 1 && c === "mx-5") {
                 return;
             }
             btn.classList.add(c);
         });
-        btn.textContent = `${index+1}`;
+        // btn.textContent = `${index+1}`;
         
         btn.addEventListener("click", () => {
             // Updates the "reportAcudits" score if the user decides to vote or re-vote the joke.
             reportAcudits[reportAcudits.length - 1].score = index+1;
             // Change the aspect of the current button score given by the user.
-            punct_btn_active(index);
+            punct_btn_active(name, index);
             // As it's ask, every time the "reportAcudits" is updated, it has to be shown by console.
             console.log(reportAcudits);
         });
@@ -126,11 +164,11 @@ function add_report(joke) {
 }
 
 // This function changes the state of the button to active, so the user can si what it's voted.
-function punct_btn_active(index) {
-    // First the "btn-active" class is removed for all buttons.
-    [0, 1, 2].map(i => punct_btn_conatiner.children[i].classList.remove("btn-active"));
-    // Then it's added to the one actually active.
-    punct_btn_conatiner.children[index].classList.add("btn-active");
+function punct_btn_active(img_name, index) {
+    // First set as non-selected for all buttons.
+    ["sad", "indifferent", "happiness"].map((name, i) => punct_btn_conatiner.children[i].children[0].src = `/images/faces/${name}-inactive.png`);
+    // Then the selectec button is given a colorfull image.
+    punct_btn_conatiner.children[index].children[0].src = `/images/faces/${img_name}.png`;
 }
 
 // add_punct_btn();
