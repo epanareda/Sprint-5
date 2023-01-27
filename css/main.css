@@ -10947,22 +10947,116 @@ textarea.form-control-lg {
   background-color: rgb(204, 204, 204);
 }
 
+#next-joke-btn {
+  background-color: rgba(255, 213, 0, 0.92);
+  color: black;
+  font-weight: bold;
+}
+
+#next-joke-btn:hover {
+  background-color: rgba(255, 213, 0, 0.701);
+}
+
+#next-joke-btn:active {
+  background-color: rgb(255, 213, 0);
+}
+
 #joke-content-container {
-  margin-top: 9rem;
+  position: absolute;
+  top: 25vh;
+  left: 25%;
   width: 50%;
 }
 @media screen and (max-width: 992px) {
   #joke-content-container {
     width: 75%;
+    left: 12.5%;
   }
 }
 @media screen and (max-width: 768px) {
   #joke-content-container {
     width: 85%;
+    left: 7.5%;
+  }
+}
+
+.blob {
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#blob-container {
+  background-position: center;
+  background-size: 60%;
+}
+@media screen and (max-width: 992px) {
+  #blob-container {
+    background-size: 50rem;
   }
 }
 @media screen and (max-width: 576px) {
-  #joke-content-container {
-    margin-top: 7.5rem;
+  #blob-container {
+    background-size: 40rem;
   }
+}
+
+#blob-top-right {
+  background-position: 92.5% 0;
+  background-size: 15%;
+}
+@media screen and (max-width: 992px) {
+  #blob-top-right {
+    background-size: 0;
+  }
+}
+
+#blob-bottom-left {
+  background-position: 7.5% 90%;
+  background-size: 15%;
+}
+@media screen and (max-width: 992px) {
+  #blob-bottom-left {
+    background-size: 0;
+  }
+}
+
+.blue-blob-container {
+  background-image: url(/images/blobs/blue/blob-container.svg);
+}
+
+.blue-blob-tr {
+  background-image: url(/images/blobs/blue/blob-top-right.svg);
+}
+
+.blue-blob-bl {
+  background-image: url(/images/blobs/blue/blob-bottom-left.svg);
+}
+
+.brown-blob-container {
+  background-image: url(/images/blobs/brown/blob-container.svg);
+}
+
+.brown-blob-tr {
+  background-image: url(/images/blobs/brown/blob-top-right.svg);
+}
+
+.brown-blob-bl {
+  background-image: url(/images/blobs/brown/blob-bottom-left.svg);
+}
+
+.purple-blob-container {
+  background-image: url(/images/blobs/purple/blob-container.svg);
+}
+
+.purple-blob-tr {
+  background-image: url(/images/blobs/purple/blob-top-right.svg);
+}
+
+.purple-blob-bl {
+  background-image: url(/images/blobs/purple/blob-bottom-left.svg);
 }/*# sourceMappingURL=main.css.map */

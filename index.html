@@ -8,7 +8,7 @@
     <title>Sprint 5</title>
 </head>
 <body>
-    <div id="background" class="position-fixed top-0 left-0 w-100 h-100"></div>
+    <!-- <div id="background" class="position-fixed top-0 left-0 w-100 h-100"></div> -->
     <div id="weather-container" class="position-absolute top-0 left-0 p-3 ps-4 fw-bold d-flex align-items-center">
         <img src="" alt=" " width="50rem" height="50rem">
         <div class="h1 mx-2">
@@ -18,10 +18,13 @@
             <!-- Avui: parcialment ennuvolat -->
         </p>
     </div>
+    <div id="blob-top-right" class="blob"></div>
+    <div id="blob-container" class="blob"></div>
+    <div id="blob-bottom-left" class="blob"></div>
     <div id="joke-content-container"
-    class="mx-auto border p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center bg-white shadow rounded-4">
+    class="mx-auto px-4 px-sm-5 d-flex flex-column justify-content-center align-items-center text-white">
         <h1 class="m-0 h3">Preparat per riure?</h1>
-        <p class="p-0 my-5" align="justify">
+        <p class="p-0 px-md-4 my-5" align="justify">
             Si vols veure un acudit dona-li al botó "Següent acudit".
         </p>
         <div id="punct-joke-container" class="d-flex">
@@ -29,7 +32,7 @@
             <button class="btn btn-secondary mb-5 mx-5">2</button>
             <button class="btn btn-secondary mb-5">3</button> -->
         </div>
-        <button id="next-joke-btn" class="btn btn-primary p-2 px-4">
+        <button id="next-joke-btn" class="btn p-2 px-4 rounded-pill border border-2 border-dark">
             Següent acudit
         </button>
     </div>

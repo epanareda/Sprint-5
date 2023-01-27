@@ -4,6 +4,9 @@ const joke_text = document.querySelectorAll("p")[1];
 const punct_btn_conatiner = document.querySelector("#punct-joke-container");
 const weather_text = document.querySelector("p");
 const weather_img = document.querySelector("img");
+const blob_container = document.querySelector("#blob-container");
+const blob_tr = document.querySelector("#blob-top-right");
+const blob_bl = document.querySelector("#blob-bottom-left");
 
 // API variables.
 // Father jokes.
@@ -74,6 +77,7 @@ const api_chuckNorris_url = "https://api.chucknorris.io/jokes/random";
 
 // Data storage variables.
 const reportAcudits = [];
+let blob_color = blob_changer();
 
 function random_joke(){
     const rand = Math.floor(Math.random() * 2); // Get a random num, either 0 or 1;
@@ -99,8 +103,9 @@ next_btn.addEventListener("click", () => {
                 // The new joke shown is added the the report, it's score, in case it's voted, will be assign later on.
                 add_report(json.joke);
             };
+            blob_color = blob_changer(blob_color);
+            add_punct_btn();
         });
-        add_punct_btn();
 });
 
 // Here the weather api is acceced by fetch.
@@ -169,6 +174,25 @@ function punct_btn_active(img_name, index) {
     ["sad", "indifferent", "happiness"].map((name, i) => punct_btn_conatiner.children[i].children[0].src = `/images/faces/${name}-inactive.png`);
     // Then the selectec button is given a colorfull image.
     punct_btn_conatiner.children[index].children[0].src = `/images/faces/${img_name}.png`;
+}
+
+// This functions sets a new color blob each time a new joke is asked.
+function blob_changer(current_color = false) {
+    // Makes sure the blobs always change.
+    if(["blue", "brown", "purple"].includes(current_color)) {
+        blob_container.classList.remove(`${current_color}-blob-container`);
+        blob_tr.classList.remove(`${current_color}-blob-tr`);
+        blob_bl.classList.remove(`${current_color}-blob-bl`);
+    };
+    // Picks a new random color blob.
+    const aviable_colors = ["blue", "brown", "purple"].filter(color => color != current_color);
+    const rand = Math.floor(Math.random() * aviable_colors.length);
+    const chosen_color = aviable_colors[rand];
+    blob_container.classList.add(`${chosen_color}-blob-container`);
+    blob_tr.classList.add(`${chosen_color}-blob-tr`);
+    blob_bl.classList.add(`${chosen_color}-blob-bl`);
+    // Return the chosen color so it won't be picked for the next joke.
+    return chosen_color;
 }
 
 // add_punct_btn();
